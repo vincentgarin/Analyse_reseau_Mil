@@ -33,8 +33,8 @@ h2_thre <- 0.2
 traits <- c("CSF50p", "GrainYield", "PlHt", "PanLen",
             "PanDia", "PGr", "BiomYield")
 
-traits <- c("GrainYield", "PlHt", "PanLen",
-            "PanDia", "PGr", "BiomYield")
+# traits <- c("GrainYield", "PlHt", "PanLen",
+#             "PanDia", "PGr", "BiomYield")
 
 n_traits <- length(traits)
 
@@ -85,7 +85,7 @@ table(data$country)
 
 # analysis of Burkina faso
 
-data_s <- data %>% filter(country == env_sg[2])
+data_s <- data %>% filter(country == env_sg[1])
 
 # remove the genotype with not enough replication ----
 
@@ -275,3 +275,15 @@ summary(FW)
 plot(FW, plotType = "trellis")
 plot(FW, plotType = "scatter")
 
+plot(FW, plotType = "trellis",
+     genotypes = c("Konkosbouga", "Maiwa HTC",
+                   "Zatib", "Salam"))
+
+# détermination des conditions homogènes:
+
+# basé sur les connaissances des breeders
+
+# basé sur les données: ex GGE et AMMI plots
+
+gge_model <- gge(BLUE, trial, genotype, trait)
+plot(gge_model)
