@@ -14,10 +14,13 @@
 
 # 7. Measure of performance and stability: graph
 
+# 8. Get Nasapower data to support the definition of location
+# clustering
+
 # Questions:
 
 # a) Important to determine what are the (mega-) environments
-# of the TPE
+# of the TPE. definition of the TPE
 
 # constrain dues to the unbalancedness of the network.
 
