@@ -196,3 +196,48 @@ p <- ggplot(data = west_africa, aes(x = long, y = lat, group = group)) +
   theme_void()
 # Display the plot
 print(p)
+
+# add the identified clusters to the global dataset ----
+zone_lk <- c("Sudanian", "Sudano-Sahelian", "Sahelian")
+names(zone_lk) <- c("green", "yellow", "red")
+
+d_loc_EC$env_zone <- zone_lk[d_loc_EC$E_color]
+d_loc_EC$env_zone <- factor(d_loc_EC$env_zone, levels = c("Sudanian", "Sudano-Sahelian", "Sahelian"))
+
+
+data <- read.csv(file = "data/data_IAVAO_Mil_network_wide.csv")
+
+all(unique(data$location) %in% d_loc_EC$env)
+
+env_zone_lk <- as.character(d_loc_EC$env_zone)
+names(env_zone_lk) <- d_loc_EC$env
+
+data$env_zone <- env_zone_lk[data$location]
+
+data <- data %>% relocate(env_zone, .after = macro_env)
+data$env_zone <- factor(data$env_zone, levels = c("Sudanian", "Sudano-Sahelian", "Sahelian"))
+
+
+# yield estimate per zone
+d_yield_zone_loc <- data %>%
+  dplyr::group_by(env_zone, location, country) %>%
+  dplyr::summarise(yield_av = mean(GrainYield, na.rm = TRUE)) %>%
+  dplyr::arrange(env_zone, desc(yield_av))
+
+d_yield_zone <- data %>% dplyr::group_by(env_zone) %>%
+  dplyr::summarise(yield_av = mean(GrainYield, na.rm = TRUE))
+
+write.csv(d_yield_zone_loc, file = "results/grain_yield_zone_location.csv",
+          row.names = FALSE)
+
+write.csv(d_yield_zone, file = "results/grain_yield_zone.csv",
+          row.names = FALSE)
+
+# distribution year zone for yield
+data_yield <- data[!is.na(data$GrainYield), ]
+table(data_yield$year, data_yield$env_zone)
+
+data_yield_location <- unique(data_yield[, c("year", "env_zone", "location")])
+table(data_yield_location$year, data_yield_location$env_zone)
+
+
