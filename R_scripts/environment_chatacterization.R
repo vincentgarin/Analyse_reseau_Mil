@@ -88,7 +88,7 @@ d_locations <- read.csv(file = "data/location_liste.csv", sep = ";")
 # colnames(d_loc_EC)[5:ncol(d_loc_EC)] <- names(EC_av)
 
 # save data ----
-save(d_loc_EC, file = "data/location_environmental_covariates.RData")
+# save(d_loc_EC, file = "data/location_environmental_covariates.RData")
 
 # Make a PCA ----
 

@@ -1,0 +1,147 @@
+---
+title: "IAVAO Mil Network target population of environment (TPE) analysis"
+author: "IAVAO Mil team"
+date: "2026-03-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Link with BMS
+
+Link between R (project) and the actual version of BMS.
+
+Useful if we need to update the data, for example to complement/modify the yield data.
+
+```{r link BMS, eval=FALSE}
+
+source("R_scripts/TPE_analysis/Link_BMS.R")
+
+```
+
+## BMS data processing
+
+The starting point is the data set with all trials that can be obtained using TDExplore.
+
+Those data are stored in the following file:
+
+/data/all_trials.csv
+
+Starting from those data. The script process the data into a usable long and wide format
+
+
+```{r BMS data processing, eval=FALSE}
+
+source("R_scripts/TPE_analysis/data_processing.R")
+
+```
+
+
+## Network data description
+
+Calculate the average yield per trials. Projection on the map for spatial visualization.
+
+Ranking of the environments based on average yield as a measurement of the environment quality.
+
+Visualization of the variety sensitivity over the environmental gradient. Get an estimation of the number of time a variety is observed.
+
+Save the environment list with latitude, longitude and average yield information.
+
+```{r Network data description, eval=FALSE}
+
+source("R_scripts/TPE_analysis/Network_overview.R")
+
+```
+
+## Get weather data
+
+Using the trials lat lon and year information, get the data from Nasapower API. Transform those data into a .met file usable by APSIM.
+
+
+```{r Get weather data}
+
+print("hello world!")
+
+```
+
+## APSIM model computation over trials
+
+Using the trials weather (.met) data as well as the trial description, run the APSIM simulation for each trial to estimate the yield.
+
+Each trials is characterized by the following parameters:
+
+* geographic position (latitude, longitude)
+* weather information (nasapower, met file) obtained from lat, lon and year
+* soil type
+* date of sowing (year)
+* variety sown (cultivar)
+* planting density
+* fertilisation
+
+The APSIM model is going to take those information as input and run a series of differential equation that mimick the plant growth process to predict a large number of intermediary trait (leaf area, number of tillers, etc.) as well as trial meta data (water accesible to the plant). See if solutions to optimize the computation time.
+
+Need to **install the millet APSIM module** to access the new version of the millet module (dynamic tillers modelling)
+
+For each trial save the yield prediction.
+
+```{r APSIM model computation loop}
+
+print("hello world!")
+
+```
+
+## Comparison observed vs predicted yield
+
+Once the yield has been estimated per trials. Merge this information with the average observed yield. Compare those predictions to the observed value. Use of Pearson correlation. Decomposition per countries to observe the tendendy and eventual flaw.
+
+```{r Comparison obs pred yield}
+
+print("hello world!")
+
+```
+
+
+## Crop model (APSIM) grid analysis
+
+Once we can assume that the crop model make a reasonable approximation of the crop cultivation process based on the correlation between observed and predicted yield data, we can run the crop model over a virtual grid of locations covering the area of interest.
+
+Those data will be stored and used to collect variable of interest that describe the trial, especially trial meta information like the water accessible to the plant as a measure of drought.
+
+```{r Crop model grid analysis}
+
+print("hello world!")
+
+```
+
+
+## Environment clustering (PCA)
+
+Using the collected information from the crop model analysis over the grid of locations as well as weather data and other source of information (e.g. soil), computation of a cluster analysis (e.g. PCA clustering). This will groupd the location with a similar pattern. The location grouped together will be considered as a single uniform environment.
+
+```{r Environment clustering}
+
+print("hello world!")
+
+```
+
+## TPE environment description
+
+Once the TPE environments are determined, possibility to describe them using a range of descriptive statistics over key variables like (rain, temperature, date of drought, ...)
+
+```{r TPE environment description}
+
+print("hello world!")
+
+```
+
+## Variety behaviour in the TPE
+
+Once the TPE environments are determined, we can estimate the variety behaviour within those environment. This correspond to calculate the within (mega) environment BLUE/BLUP, as well as stability curve ...
+
+```{r Variety behaviour in the TPE}
+
+print("hello world!")
+
+```
