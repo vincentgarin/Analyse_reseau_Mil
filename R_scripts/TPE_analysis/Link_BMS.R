@@ -2,7 +2,7 @@
 # Link BMS #
 ############
 
-# Authors: Adama, Safie 
+# Authors: Adama, Safie, Boubacar 
 
 # Install package ----
 # install.packages("exifr")
