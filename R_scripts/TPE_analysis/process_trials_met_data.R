@@ -210,7 +210,7 @@ for (i in seq_len(nrow(d_trials))) {
   # Sanitise location name for use in filename
   safe_location <- gsub("[^A-Za-z0-9_-]", "_", location)
   # fname     <- sprintf("%s_%d.met", safe_location, yr)
-  # met_files[i] <- fname
+  met_files[i] <- fname
   fpath     <- file.path(output_dir, fname)
   
   message(sprintf("\n[%d/%d] %s  (lat=%.4f, lon=%.4f, year=%d)",
