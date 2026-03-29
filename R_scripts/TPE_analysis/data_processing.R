@@ -10,6 +10,9 @@ library(readxl)
 library(desplot)
 library(tidyr)
 
+# ad-hoc function ----
+f_mean <- function(x) mean(x, na.rm = TRUE)
+
 # open data ----
 
 data <- read.csv(file = "data/all_trials.csv")
@@ -76,3 +79,17 @@ write.csv(data, file = "data/data_IAVAO_Mil_network_long.csv",
 
 write.csv(data_wider, file = "data/data_IAVAO_Mil_network_wide.csv",
           row.names = FALSE)
+
+# trial data summary (including average yield) ----
+data <- read.csv(file = "data/data_IAVAO_Mil_network_wide.csv")
+
+d_trials <- data %>% group_by(macro_env, location, year) %>%
+  summarise(country = unique(country),
+            lat = unique(lat),
+            lon = unique(lon),
+            year = unique(year),
+            av_yield = f_mean(GrainYield)) %>%
+  mutate(env = paste0(macro_env, "_", country, '_', location, "_", year)) %>% 
+  relocate(env, .before = macro_env)
+
+save(d_trials, file = "output/d_trials.RData")

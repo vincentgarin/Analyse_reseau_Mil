@@ -15,17 +15,7 @@ f_mean <- function(x) mean(x, na.rm = TRUE)
 
 # Load data ----
 data <- read.csv(file = "data/data_IAVAO_Mil_network_wide.csv")
-
-# average yield per trial ----
-d_trials <- data %>% group_by(macro_env, location, year) %>%
-  summarise(country = unique(country),
-            site = unique(location),
-            lat = unique(lat),
-            lon = unique(lon),
-            year = unique(year),
-            av_yield = f_mean(GrainYield))
-
-save(d_trials, file = "output/d_trials.RData")
+load(file = "output/d_trials.RData")
 
 # yield spatial distribution ----
 d_map <- map_data('world')

@@ -62,7 +62,7 @@ Using the trials lat lon and year information, get the data from Nasapower API. 
 
 ```{r Get weather data}
 
-print("hello world!")
+source("R_scripts/TPE_analysis/process_trials_met_data.R")
 
 ```
 
