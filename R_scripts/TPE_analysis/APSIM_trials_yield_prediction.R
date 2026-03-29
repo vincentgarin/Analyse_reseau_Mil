@@ -7,9 +7,8 @@
 library(dplyr)
 library(stringr)
 library(apsimx)
-library(stringr)
 library(ggplot2)
-library(colorspace)
+library(googlesheets4)
 library(data.table)
 library(xml2)
 
@@ -57,20 +56,23 @@ mdf_clock <- function(apsim_file, start_date, end_date) {
   return(apsim_file)
 }
 
-# stop here: continue to build ad-hoc functions that will modify the
-# arguments
-
 # load data ----
 
 # get the trial data
 load(file = "output/d_trials.RData")
 
+# get trial meta data
+sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g/edit?usp=drive_link&ouid=112199760743851921328&rtpof=true&sd=true"
+
+# Read the data from the Google Sheet
+meta_data <- read_sheet(sheet_url)
+
+# Parameters ----
+
 # Define your vector of .met files
 root <- "D:/Mes Donnees/WD/Teaching/Analyse_reseau_Mil/data/weather/met_files/"
 
 met_files <- paste0(root, d_trials$met_file)
-
-# Parameters ----
 
 # temporary subset
 d_trials <- d_trials[1:2, ]

@@ -9,6 +9,48 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## R package instllation
+
+```{r R packages installation, eval=FALSE}
+pkg_list <- c("apsimx", "data.table", "desplot", "dplyr", "ggplot2", "googlesheets4", "httr",  "jsonlite", "lme4", "lubridate", "nasapower", "readxl", "rjson", "stringr",  "tidyr", "xml2")
+
+new.packages <- pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+if(!('EnvRtype' %in% installed.packages()[,"Package"])){
+  library(devtools)
+  devtools::install_github('allogamous/EnvRtype',force=TRUE)
+}
+```
+
+### Load R libraries
+
+```{r Load R libraries, eval=FALSE}
+
+library(data.table)
+library(tidyr)
+library(httr)
+library(rjson)
+
+library(dplyr)
+library(ggplot2)
+library(lme4)
+library(readxl)
+library(desplot)
+library(tidyr)
+
+library(jsonlite)
+library(lubridate)
+library(nasapower)
+
+library(stringr)
+library(apsimx)
+library(ggplot2)
+library(googlesheets4)
+library(xml2)
+
+```
+
 ## Link with BMS
 
 Link between R (project) and the actual version of BMS.
@@ -60,7 +102,7 @@ source("R_scripts/TPE_analysis/Network_overview.R")
 Using the trials lat lon and year information, get the data from Nasapower API. Transform those data into a .met file usable by APSIM.
 
 
-```{r Get weather data}
+```{r Get weather data, eval=FALSE}
 
 source("R_scripts/TPE_analysis/process_trials_met_data.R")
 
@@ -86,9 +128,9 @@ Need to **install the millet APSIM module** to access the new version of the mil
 
 For each trial save the yield prediction.
 
-```{r APSIM model computation loop}
+```{r APSIM yield prediction over trials, eval=FALSE}
 
-print("hello world!")
+source("R_scripts/TPE_analysis/APSIM_trials_yield_prediction.R")
 
 ```
 
