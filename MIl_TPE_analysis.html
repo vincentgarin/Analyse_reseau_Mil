@@ -358,6 +358,42 @@ environment (TPE) analysis</h1>
 </div>
 
 
+<div id="r-package-instllation" class="section level2">
+<h2>R package instllation</h2>
+<pre class="r"><code>pkg_list &lt;- c(&quot;apsimx&quot;, &quot;data.table&quot;, &quot;desplot&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;googlesheets4&quot;, &quot;httr&quot;,  &quot;jsonlite&quot;, &quot;lme4&quot;, &quot;lubridate&quot;, &quot;nasapower&quot;, &quot;readxl&quot;, &quot;rjson&quot;, &quot;stringr&quot;,  &quot;tidyr&quot;, &quot;xml2&quot;)
+
+new.packages &lt;- pkg_list[!(pkg_list %in% installed.packages()[,&quot;Package&quot;])]
+if(length(new.packages)) install.packages(new.packages)
+
+if(!(&#39;EnvRtype&#39; %in% installed.packages()[,&quot;Package&quot;])){
+  library(devtools)
+  devtools::install_github(&#39;allogamous/EnvRtype&#39;,force=TRUE)
+}</code></pre>
+<div id="load-r-libraries" class="section level3">
+<h3>Load R libraries</h3>
+<pre class="r"><code>library(data.table)
+library(tidyr)
+library(httr)
+library(rjson)
+
+library(dplyr)
+library(ggplot2)
+library(lme4)
+library(readxl)
+library(desplot)
+library(tidyr)
+
+library(jsonlite)
+library(lubridate)
+library(nasapower)
+
+library(stringr)
+library(apsimx)
+library(ggplot2)
+library(googlesheets4)
+library(xml2)</code></pre>
+</div>
+</div>
 <div id="link-with-bms" class="section level2">
 <h2>Link with BMS</h2>
 <p>Link between R (project) and the actual version of BMS.</p>

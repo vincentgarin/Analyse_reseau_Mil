@@ -2,6 +2,8 @@
 # Link BMS #
 ############
 
+# Authors:
+
 # Install package ----
 # install.packages("exifr")
 # install.packages("getPass")
