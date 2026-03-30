@@ -7,6 +7,8 @@
 # Install package ----
 # install.packages("exifr")
 # install.packages("getPass")
+# install.packages('httr2')
+# install.packages('statgenSTA')
 # install.packages("package/brapir-master.tar.gz", type = "source", repos = NULL)
 # install.packages("package/bmsapi_0.2.0.tar.gz", type = "source", repos = NULL)
 # install.packages("package/bmsapi-main.tar.gz", type = "source", repos = NULL)
@@ -40,7 +42,7 @@ bms_get_brapiv2_token <- function(instance_url,
 # generate a token ----
 bmsserver <- "iavao.bmspro.io"
 bms_token <- bms_get_brapiv2_token(paste0("https://", bmsserver),
-                                   user = "vincent.garin")
+                                   user = "b.kountche")
 
 # create a connection ----
 con <- brapir::brapi_connect(
