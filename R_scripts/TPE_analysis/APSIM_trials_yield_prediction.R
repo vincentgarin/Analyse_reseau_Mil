@@ -62,10 +62,36 @@ mdf_clock <- function(apsim_file, start_date, end_date) {
 load(file = "output/d_trials.RData")
 
 # get trial meta data
-sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g/edit?usp=drive_link&ouid=112199760743851921328&rtpof=true&sd=true"
+# sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g/edit?usp=drive_link&ouid=112199760743851921328&rtpof=true&sd=true"
+# sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g/edit?gid=981267538#gid=981267538"
+# sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g/edit#gid=981267538"
+sheet_url <- "https://docs.google.com/spreadsheets/d/1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g"
 
 # Read the data from the Google Sheet
 meta_data <- read_sheet(sheet_url)
+meta_data <- read_sheet("1NjLxFH_1C1xOkTMZpB9zUpKVYBPw4E3g", sheet = 1)
+
+# load the sheet manually
+meta_data <- read.csv(file = "data/Meta_data_trials.xlsx - Meta_data_trials.csv")
+colnames(meta_data) <- meta_data[1, ]
+meta_data <- meta_data[-1, ]
+
+# recreate the trial identifiers
+# Macro_env, country, location, year
+
+Macro_env <- substr(x = meta_data$TrialName, 19, nchar(meta_data$TrialName))
+Macro_env <- gsub(pattern = "_", replacement = "", x = Macro_env)
+Macro_env <- gsub(pattern = "^$", replacement = "NA", x = Macro_env)
+
+Macro_env$env <- mapply(
+  function(m, c, l, y) paste0(m, "_", c, "_", l, "_", y),
+  Macro_env,
+  meta_data$Country,
+  meta_data$LocationName,
+  meta_data$year
+)
+
+Macro_env$env <- gsub(pattern = "é", replacement = "e", x = Macro_env$env)
 
 # Parameters ----
 
