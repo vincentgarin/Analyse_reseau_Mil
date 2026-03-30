@@ -183,3 +183,41 @@ for(i in 1:ncol(geno_env_2way)){
   print(p)
   
 }
+# trellis plot of yield (geno x env) within zone ----
+
+# for(i in 1:3){
+
+for(i in 1:ncol(geno_env_2way)){
+  
+  d_i <- data.frame(env = env_gradient_label,
+                    
+                    yield = geno_env_2way[, i],
+                    
+                    env_av_yield,
+                    
+                    macro_env = d_env_qual$macro_env)
+  
+  p <- ggplot(d_i, aes(x = env_av_yield, y = yield)) +
+    
+    facet_wrap(~macro_env) +
+    
+    geom_point() +
+    
+    geom_smooth(method = 'lm') +
+    
+    ggtitle(colnames(geno_env_2way)[i]) +
+    
+    scale_x_continuous(
+      
+      breaks = d_i$env_av_yield,
+      
+      labels = d_i$env
+      
+    ) +
+    
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
+  
+  print(p)
+  
+}
+
